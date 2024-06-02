@@ -10,6 +10,7 @@ sudo docker build -t joke .
 FROM node:22-alpine AS builder
 
 - create app dir
+
 RUN mkdir /app
 
 - copy '.' - everything in the app folder into container
@@ -17,6 +18,7 @@ RUN mkdir /app
 COPY . /app
 
 - go to app dir and exec installation of all packages and build the project
+
 RUN cd /app && npm install && npm run build 
 
 
@@ -27,18 +29,23 @@ FROM node:22-alpine
 RUN mkdir /app
 
 - copy all relevant files from previously created image
+
 COPY --from=builder /app/build /app/build
 
 - copy package.json to app folder
+
 COPY --from=builder /app/package.json /app/
 
 - install only production dependencies, ignore all dev
+
 RUN cd /app && npm install --production
 
 - set app as work dir
+
 WORKDIR /app
 
 - add command to start app
+
 CMD ["node", "build/index.js"]
 
 
