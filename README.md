@@ -3,9 +3,9 @@
 sudo docker build -t joke . 
 
 
-- use alpine because it's much smaller in size, 
+## here I do a 2 step build by firstly defining a "builder" image to create smaller container which builds project (instead of manualy do this)
 
-- here I do a 2 step build by firstly defining a "builder" image to create smaller container which builds project (instead of manualy do this)
+- use alpine because it's much smaller in size,
 
 FROM node:22-alpine AS builder
 
